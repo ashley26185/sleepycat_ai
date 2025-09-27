@@ -1,4 +1,5 @@
 # sleepycat_ai
+This repository integrates PydanticAI with Hugging Face Provider
 
 ## Install the package management tool uv
 Make sure that you have uv installed - https://docs.astral.sh/uv/getting-started/installation/.  
