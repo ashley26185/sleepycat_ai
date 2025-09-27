@@ -11,20 +11,15 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-class MyInput(BaseModel):
-    text: str
-
-class MyOutput(BaseModel):
-    generated_text: str
-
 def main():
     print("Hello from pydantic-huggingface!")
     provider = HuggingFaceProvider(api_key=settings.HF_TOKEN)
     model = HuggingFaceModel(model_name="Qwen/QwQ-32B", provider=provider)
-    agent = Agent(model)
+    agent = Agent(model,
+                  instructions='Be concise, reply with one sentence.')
 
     # Use the synchronous API with a plain string prompt (latest pydantic-ai expects this for HuggingFace)
-    result_sync = agent.run_sync("What are the recent riots in Australia regarding immigration due to?")
+    result_sync = agent.run_sync("Is QuantumScape a good stock to invest in based on current progress by the company and why?")
     print(result_sync)
 
 if __name__ == "__main__":
