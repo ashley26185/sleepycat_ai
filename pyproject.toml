@@ -1,0 +1,11 @@
+[project]
+name = "pydantic-huggingface"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pydantic>=2.11.9",
+    "pydantic-ai>=0.8.1",
+    "pydantic-settings>=2.10.1",
+]
