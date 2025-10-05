@@ -8,4 +8,5 @@ dependencies = [
     "pydantic>=2.11.9",
     "pydantic-ai>=0.8.1",
     "pydantic-settings>=2.10.1",
+    "pyyaml>=6.0.2",
 ]

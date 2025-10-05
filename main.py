@@ -3,6 +3,15 @@ from pydantic_ai.providers.huggingface import HuggingFaceProvider
 from pydantic_ai import Agent  # Import UserMessage directly from pydantic_ai
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import logging
+import logging.config
+import yaml
+
+
+def setup_logging(config_path="logging_config.yaml"):
+    with open(config_path, "r") as f:
+        config = yaml.safe_load(f)
+    logging.config.dictConfig(config)
 
 class Settings(BaseSettings):
     HF_TOKEN: str
@@ -12,15 +21,20 @@ class Settings(BaseSettings):
 settings = Settings()
 
 def main():
+    setup_logging()
+    # Get a logger object
+    logger = logging.getLogger('pydantic_huggingface')
+    logger.info('This is a debug message')
     print("Hello from pydantic-huggingface!")
     provider = HuggingFaceProvider(api_key=settings.HF_TOKEN)
     model = HuggingFaceModel(model_name="Qwen/QwQ-32B", provider=provider)
     agent = Agent(model,
-                  instructions='Be concise, reply with one sentence.')
+                  instructions='Be concise. Respond in a single sentence.')
 
     # Use the synchronous API with a plain string prompt (latest pydantic-ai expects this for HuggingFace)
-    result_sync = agent.run_sync("Is QuantumScape a good stock to invest in based on current progress by the company and why?")
+    result_sync = agent.run_sync("When was the European Union formed?")
     print(result_sync)
+    logger.info(f'Synchronous result: {result_sync}')
 
 if __name__ == "__main__":
     main()
